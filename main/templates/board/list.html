@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+        function board_sort() {
+            var board_sort = document.getElementById("board_sort").value;
+
+            if(board_sort == "") {
+                return false;
+            } else {
+                self.location.href = "{{ url_for('board.board_list') }}?board_sort=" + board_sort;
+            }
+        }
+    </script>
+
+    <div class="content_board">
+        <div class="container">
+            {# 컬럼별로 정렬하 #}
+            <select name="board_sort" id="board_sort" onchange="board_sort()">
+                <option value="" {% if board_sort == '' or board_sort == -1 %} selected {% endif %}>정렬 방식</option>
+                <option value="0" {% if board_sort == 0 %} selected {% endif %}>제목 내림차순</option>
+                <option value="1" {% if board_sort == 1 %} selected {% endif %}>제목 오름차순</option>
+                <option value="2" {% if board_sort == 2 %} selected {% endif %}>이름 내림차순</option>
+                <option value="3" {% if board_sort == 3 %} selected {% endif %}>이름 오름차순</option>
+                <option value="4" {% if board_sort == 4 %} selected {% endif %}>날짜 최신순</option>
+                <option value="5" {% if board_sort == 5 %} selected {% endif %}>날짜 최고순</option>
+                <option value="6" {% if board_sort == 6 %} selected {% endif %}>높은 조회순</option>
+                <option value="7" {% if board_sort == 7 %} selected {% endif %}>낮은 조회순</option>
+            </select>
+            {% if datas.count() > 0 %}
+                <table class="board" style="margin-bottom: 0;">
+                    <thead>
+                        <tr>
+                            <td width="9%">번호</td>
+                            <td width="54%">
+                                제목&nbsp;
+{#                                <button><a href="{{ url_for('board.board_sort_title_up') }}" class="up">⬆</a></button>#}
+{#                                <button><a href="{{ url_for('board.board_sort_title_down') }}" class="down">⬇</a></button>#}
+                            </td>
+                            <td width="14%">
+                                이름&nbsp;
+{#                                <button><a href="{{ url_for('board.board_sort_name_up') }}" class="up">⬆</a></button>#}
+{#                                <button><a href="{{ url_for('board.board_sort_name_down') }}" class="down">⬇</a></button>#}
+                            </td>
+                            <td width="14%">
+                                날짜&nbsp;
+{#                                <button><a href="{{ url_for('board.board_sort_pubdate_up') }}" class="up">⬆</a></button>#}
+{#                                <button><a href="{{ url_for('board.board_sort_pubdate_down') }}" class="down">⬇</a></button>#}
+                            </td>
+                            <td width="9%">
+                                조회&nbsp;
+{#                                <button><a href="{{ url_for('board.board_sort_view_up') }}" class="up">⬆</a></button>#}
+{#                                <button><a href="{{ url_for('board.board_sort_view_down') }}" class="down">⬇</a></button>#}
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in datas %}
+                        <tr>
+                            <td class="index">{{ (tot_count + 1) - (loop.index + ((page - 1) * limit)) }}</td>
+                            <td class="title"><a href="{{ url_for('board.board_view', idx=data._id, page=page, board_sort=board_sort) }}">{{ data.title }}</a></td>
+                            <td class="name">{{ data.name }}</td>
+                            <td class="date">{{ data.pubdate|format_datetime }}</td>
+                            <td class="view">{{ data.view }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="5">
+                                <div class="paging font_14">
+                                    {# 페이징 기능 구현 #}
+                                    {% if block_start - 1 > 0 %}
+                                        <a href="{{ url_for('board.board_list', page=block_start - 1, board_sort=board_sort) }}">[이전]</a>
+                                    {% else %}
+                                        <span class="muted">[이전]</span>
+                                    {% endif %}
+                                    {% for i in range(block_start, block_last + 1) %}
+                                        {% if i > last_page_num %}
+
+                                        {% else %}
+                                            {% if i == page %}
+                                                <a href="" class="active">{{ i }}</a>
+                                            {% else %}
+                                                <a href="{{ url_for('board.board_list', page=i, board_sort=board_sort) }}">{{ i }}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if block_last < last_page_num %}
+                                        <a href="{{ url_for('board.board_list', page=block_last + 1, board_sort=board_sort) }}">[다음]</a>
+                                    {% else %}
+                                        <span class="muted">[다음]</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="page write">
+                    <button class="write_button"><a href="{{ url_for('board.board_write') }}" style="padding: 0;">글 작성하기</a></button>
+                </div>
+            {% else %}
+                <div class="no_data">
+                    <span class="table_title">데이터가 없습니다.</span><br><br>
+                    <div class="page write">
+                        <button class="write_button"><a href="{{ url_for('board.board_write') }}" style="padding: 0;">글 작성하기</a></button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

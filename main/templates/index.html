@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- banner -->
+    <div id="banner">
+        <div class="container">
+            <div class="banner">
+                <div class="banner_slide">
+                    <div class="first_slide fade"><img src="{{ url_for('static', filename='/img/banner/img01.png') }}"></div>
+                    <div class="first_slide fade"><img src="{{ url_for('static', filename='/img/banner/img02.png') }}"></div>
+                    <div class="first_slide fade"><img src="{{ url_for('static', filename='/img/banner/img03.png') }}"></div>
+                    <div class="first_slide fade"><img src="{{ url_for('static', filename='/img/banner/img04.png') }}"></div>
+                    <div class="first_slide fade"><img src="{{ url_for('static', filename='/img/banner/img05.png') }}"></div>
+                </div>
+                <div class="prev_button">
+                    <img src="{{ url_for('static', filename='/img/button/btn_banner_left.png') }}" class="prev_img">
+                    <a class="prev" onclick="bannerButtonSlide(-1)"><img src="{{ url_for('static', filename='/img/button/btn_banner_left_over.png') }}"></a>
+                </div>
+                <div class="next_button">
+                    <img src="{{ url_for('static', filename='/img/button/btn_banner_right.png') }}" class="next_img">
+                    <a class="next" onclick="bannerButtonSlide(1)"><img src="{{ url_for('static', filename='/img/button/btn_banner_right_over.png') }}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //banner -->
+    <!-- notice -->
+    <div id="notice">
+        <div class="container">
+            <div class="notice mt20">
+                <font>공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                <div class="notice_slide">
+                    <div><a href="" style="color: #007FFF;" class="second_slide">2020 지역문화예술 플랫폼 육성사업 &lt;전시연계 체험교육프로그램&gt;일정 변경</a></div>
+                    <div><a href="" style="color: #23B2B2;" class="second_slide">2020 지역문화예술 플랫폼 육성사업 &lt;박물관 공예대학&gt;일정 변경</a></div>
+                    <div><a href="" style="color: #FF00FF;" class="second_slide">2020 풀짚공예박물관 길 위의 인문학 프로그램 참여자 모집</a></div>
+                    <div><a href="" style="color: #AA56FF;" class="second_slide">5060 신중년 교육프로그램 - 풀짚공예 체험학습 강사 양성과정 모집</a></div>
+                    <div><a href="" style="color: #0000FF;" class="second_slide">2020 지역문화예술 플랫폼 육성사업 전시연계 교육프로그램 (학생 및 가족) 일정 변경</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //notice -->
+    <!-- slide -->
+    <div id="slide">
+        <div class="container">
+            <div class="slide mt20">
+                <div class="imgs_slide">
+                    <ul>
+                        {% for img in slide %}
+                            <li><a href=""><img src="{{ img.url }}"></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="prev_button">
+                    <img src="{{ url_for('static', filename='/img/button/rolling_button_left.png') }}" class="prev_img">
+                    <a class="prev"><img src="{{ url_for('static', filename='/img/button/rolling_button_left_over.png') }}"></a>
+                </div>
+                <div class="next_button">
+                    <img src="{{ url_for('static', filename='/img/button/rolling_button_right.png') }}" class="next_img">
+                    <a class="next"><img src="{{ url_for('static', filename='/img/button/rolling_button_right_over.png') }}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //slide -->
+    <!-- board -->
+    <div id="board">
+        <div class="container">
+            <div class="all_board">
+                <div class="board">
+                    <font>짚신 만들기</font>
+                    <a href="" class="more">+ MORE</a>
+                    <div class="video">
+                        <img src="{{ url_for('static', filename='/img/video/zipshin.png') }}" class="video_img">
+                        <div class="button">
+                            <img src="{{ url_for('static', filename='/img/video/playbutton.png') }}" class="play_button">
+                            <a href=""><img src="{{ url_for('static', filename='/img/video/playbutton_over.png') }}" class="play_button_over"></a>
+                        </div>
+                        <a href="" class="video_info">비를 맞지않고 깨끗하며 마디가 세지 않는 볏짚을 구한 다음에 물을 뿌려 촉촉하게 만들어 만지기 좋게 준비한다.</a>
+                    </div>
+                    <a href="" class="video_more1">[2] 여치집 만들기</a>
+                    <a href="" class="video_more2">[3] 시오쟁이</a>
+                </div>
+                <div class="board">
+                    <img src="{{ url_for('static', filename='/img/info.png') }}">
+                </div>
+                <div class="board">
+                    <font>관련기사</font>
+                    <a href="{{ url_for('board.board_list') }}" class="more">+ MORE</a>
+                    <ul>
+                        {% for data in datas %}
+                            <li>
+                                <a href="{{ url_for('board.board_view', idx=data._id, page=page) }}">{{ data.title }}</a><span>{{ data.pubdate|format_datetime2 }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="board last">
+                    <font>공지사항</font>
+                    <a href="" class="more">+ MORE</a>
+                    <ul>
+                        <li><a href="" style="color: #007FFF; font-weight: bold;">2020 지역문화예술 플랫폼 육성사업 &lt;전시연계 체험교육프로그램&gt;일정 변경</a><span>08/30</span></li>
+                        <li><a href="" style="color: #23B2B2; font-weight: bold;">2020 지역문화예술 플랫폼 육성사업 &lt;박물관 공예대학&gt;일정 변경</a><span>05/30</span></li>
+                        <li><a href="" style="color: #FF00FF; font-weight: bold;">2020 풀짚공예박물관 길 위의 인문학 프로그램 참여자 모집</a><span>05/27</span></li>
+                        <li><a href="" style="color: #AA56FF; font-weight: bold;">5060 신중년 교육프로그램 - 풀짚공예 체험학습 강사 양성과정 모집</a><span>05/12</span></li>
+                        <li><a href="" style="color: #0000FF; font-weight: bold;">2020 지역문화예술 플랫폼 육성사업 전시연계 교육프로그램 (학생 및 가족) 일정 변경</a><span>05/06</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //board -->
+{% endblock %}

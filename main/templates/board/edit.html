@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content_board">
+        <div class="container">
+            <form method="POST" name="form" action="{{ url_for('board.board_edit', idx=data._id) }}">
+                <div class="form_box">
+                    <h3>게시글 수정하기</h3>
+                    <input class="input_field" type="text" name="name" value="{{ session['name'] }}" readonly><br>
+                    <input class="input_field" type="text" placeholder="제목을 입력해주세요." name="title" value="{{ data.title }}" required><br>
+                    <textarea class="textarea_field" placeholder="내용을 입력해주세요." name="contents" required>{{ data.contents }}</textarea><br>
+                </div>
+                <div class="page write">
+                    <button type="submit" class="write_button">글 수정하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

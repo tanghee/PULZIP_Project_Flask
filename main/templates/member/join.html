@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content_account">
+        <table>
+            <form name="form" action="{{ url_for('member.member_join') }}" method="POST">
+                <thead>
+                    <caption class="table_title">회원 가입</caption>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            NAME &nbsp;
+                            <input type="text" name="name" placeholder="이름을 입력해주세요." required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            E-MAIL &nbsp;
+                            <input type="text" name="email" placeholder="이메일을 입력해주세요." required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            PASSWORD &nbsp;
+                            <input type="password" name="pass" placeholder="비밀번호를 입력해주세요." required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            CONFIRM PW &nbsp;
+                            <input type="password" name="pass2" placeholder="비밀번호를 한번더 입력해주세요." required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="font_14">가입하기</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </form>
+        </table>
+    </div>
+{% endblock %}

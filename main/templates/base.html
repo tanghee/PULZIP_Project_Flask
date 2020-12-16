@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>풀짚공예박물관 (Grasses &amp; straw craft : PULZIP.COM)</title>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+            {% endif %}
+        {% endwith %}
+
+        <meta charset="UTF-8">
+        <meta name="keywords" content="풀짚, 집풀, 짚풀">
+        <meta name="description" content="아름다은 자연에서 나오는 소재를 가지고 재구성하여 예술로 승화시킨 풀짚">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/reset.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/style.css') }}">
+    </head>
+    <body>
+        <!-- header -->
+        <div id="header">
+            <div class="container">
+                <div class="header">
+                    <div class="header_login">
+                        <ul>
+                            <li><a href="{{ url_for('main_screen') }}" class="font font_12">HOME</a></li>
+
+                            {% if session.get("id") is not none %}
+                                <li><a href="" class="font font_12">{{ session["name"] }}님 안녕하세요^^</a></li>
+                                <li><a href="{{ url_for('member.member_logout') }}" class="font font_12">로그아웃</a></li>
+                            {% else %}
+                                <li><a href="{{ url_for('member.member_login') }}" class="font font_12">로그인</a></li>
+                                <li><a href="{{ url_for('member.member_join') }}" class="font font_12">회원가입</a></li>
+                            {% endif %}
+
+                            <li><a href="" class="font font_12">사이트맵</a></li>
+                        </ul>
+                    </div>
+                    <a href="{{ url_for('main_screen') }}"><img src="{{ url_for('static', filename='/img/main_logo.png') }}" class="main_logo"></a>
+                    <div class="header_menu">
+                        <ul>
+                            <li><a href="" class="font font_14"><strong>박물관소개</strong></a>
+                                <ul class="menu1">
+                                    <li><a href="" class="font font_12">관장 인사글</a></li>
+                                    <li><a href="" class="font font_12">관람 안내 및 오시는 길</a></li>
+                                    <li><a href="" class="font font_12">관련 기사</a></li>
+                                    <li><a href="" class="font font_12">로고 소개</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="" class="font font_14"><strong>풀짚공예 전시실</strong></a>
+                                <ul class="menu2">
+                                    <li><a href="" class="font font_12">소장유물 소개</a></li>
+                                    <li><a href="" class="font font_12">상설 전시</a></li>
+                                    <li><a href="" class="font font_12">특별 전시</a></li>
+                                    <li><a href="" class="font font_12">체험교육 전시</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="" class="font font_14"><strong>풀짚공예 교육</strong></a>
+                                <ul class="menu3">
+                                    <li><a href="" class="font font_12">풀짚공예란?</a></li>
+                                    <li><a href="" class="font font_12">만들기 동영상</a></li>
+                                    <li><a href="" class="font font_12">체험학습</a></li>
+                                    <li><a href="" class="font font_12">일반&전문가 심화과정</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="" class="font font_14"><strong>풀짚 문화</strong></a>
+                                <ul class="menu4">
+                                    <li><a href="" class="font font_12">책 소개</a></li>
+                                    <li><a href="" class="font font_12">바구니여행</a></li>
+                                    <li><a href="" class="font font_12">풀짚갤러리</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="" class="font font_14"><strong>커뮤니티</strong></a>
+                                <ul class="menu5">
+                                    <li><a href="" class="font font_12">공지사항</a></li>
+                                    <li><a href="" class="font font_12">자유게시판</a></li>
+                                    <li><a href="" class="font font_12">포토갤러리</a></li>
+                                    <li><a href="" class="font font_12">체험예약</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //header -->
+        {% block content %}
+        {% endblock %}
+        <!-- footer -->
+        <div id="footer">
+            <div class="container">
+                <div class="footer mb20">
+                    <img src="{{ url_for('static', filename='/img/footer_logo.png') }}">
+                    <div>
+                        TEL : 070-4655-4538 | FAX : 031-717-4539 | E-mail : <a href="mailto:pulzip@naver.com">pulzip@naver.com</a><br>
+                        COPYRIGHT 2020 PULZIP. ALL RIGHTS RESERVED. 경기도 광주시 오포읍 신현리 331-5 풀집공예박물관 <a href="">[약도보기]</a><br>
+                        331-5 Sinhyeonri Opoup GwangJu Gyeonggi, PULZIP <a href="">[Location Map]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //footer -->
+        <!-- javascript -->
+        <script src="{{ url_for('static', filename='/js/jquery.min_1.12.4.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/custom.js') }}"></script>
+    </body>
+</html>
